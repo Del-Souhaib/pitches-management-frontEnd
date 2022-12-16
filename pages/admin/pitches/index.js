@@ -1,12 +1,14 @@
-import {Button, Input, Space, Table} from "antd";
+import {Button, Dropdown, Input, Space, Table} from "antd";
 import {useRef, useState} from "react";
-import {SearchOutlined} from "@ant-design/icons";
+import {DownOutlined, SearchOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
 import SideMenue from "../parts/sideMenue";
+import Link from "next/link";
+import { Image } from 'antd';
 
 
 const Pitches=(props)=>{
-
+console.log(props)
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef(null);
@@ -158,6 +160,10 @@ const Pitches=(props)=>{
             ...getColumnSearchProps('address'),
             sorter: (a, b) => a.covered.length - b.covered.length,
             sortDirections: ['descend', 'ascend'],
+            render: (_, record) => (
+                <span>{record.covered?'Yes' : 'No'}</span>
+            ),
+
         },
         {
             title: 'Price',
@@ -166,6 +172,10 @@ const Pitches=(props)=>{
             ...getColumnSearchProps('price'),
             sorter: (a, b) => a.price.length - b.price.length,
             sortDirections: ['descend', 'ascend'],
+            render: (_, record) => (
+                <span>{record.price} Dh</span>
+            ),
+
         },
         {
             title: 'Location',
@@ -175,7 +185,46 @@ const Pitches=(props)=>{
             sorter: (a, b) => a.location.length - b.location.length,
             sortDirections: ['descend', 'ascend'],
         },
+        {
+            title: 'Images',
+            key: 'image',
+            render: (_, record) => (
+                <Image
+                    width={50}
+                    height={60}
+                    src="https://thumbs.dreamstime.com/b/stade-de-football-13647873.jpg"
+                />
+            ),
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Dropdown
+                    menu={
+                        [
+                            {
+                                label: <Link href={"/admin/pitches/"+record.id}>Edit</Link>,
+                                key: '0',
+                            },
+                            {
+                                label: <a href="https://www.aliyun.com">Delete</a>,
+                                key: '1',
+                            },
+                        ]
+                    }
+                    trigger={['click']}
+                >
+                    <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                            Action
+                            <DownOutlined />
+                        </Space>
+                    </a>
+                </Dropdown>
+            ),
 
+        },
     ];
 
     return (
@@ -186,7 +235,7 @@ const Pitches=(props)=>{
                 <h3 className="text-center mb-5">List Pitches</h3>
 
 
-                <Table columns={columns} dataSource={props.users}   pagination={tableParams.pagination}
+                <Table columns={columns} dataSource={props.data}   pagination={tableParams.pagination}
                 />
 
             </div>
@@ -198,10 +247,10 @@ const Pitches=(props)=>{
 export async function getServerSideProps() {
     // Fetch data from external API
     const res = await fetch(`http://localhost:8080/api/pitches`)
-    const users = await res.json()
+    const data = await res.json()
 
     // Pass data to the page via props
-    return { props: { users } }
+    return { props: { data } }
 }
 
 export default Pitches

@@ -160,7 +160,14 @@ const Users=(props)=>{
             sorter: (a, b) => a.role.name.length - b.role.name.length,
             sortDirections: ['descend', 'ascend'],
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <p>d</p>
+            ),
 
+        },
     ];
 
     return (
