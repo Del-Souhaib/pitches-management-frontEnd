@@ -1,10 +1,9 @@
-import {Button, Dropdown, Input, Space, Table} from "antd";
+import {Button, Dropdown, Input, Space, Table,Image} from "antd";
 import {useRef, useState} from "react";
 import {DownOutlined, SearchOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
 import SideMenue from "../parts/sideMenue";
 import Link from "next/link";
-import { Image } from 'antd';
 
 
 const Pitches=(props)=>{
@@ -122,6 +121,27 @@ console.log(props)
                 text
             ),
     });
+
+
+    const menuItems = [
+        {
+            label: <a href="https://www.antgroup.com">1st menu item</a>,
+            key: '0',
+        },
+        {
+            label: <a href="https://www.aliyun.com">2nd menu item</a>,
+            key: '1',
+        },
+        {
+            type: 'divider',
+        },
+        {
+            label: '3rd menu item',
+            key: '3',
+        },
+    ];
+
+
     const columns = [
         {
             title: 'Name',
@@ -150,7 +170,7 @@ console.log(props)
             dataIndex: 'capacity',
             key: 'capacity',
             ...getColumnSearchProps('capacity'),
-            sorter: (a, b) => a.capacity.length - b.capacity.length,
+            sorter: (a, b) => a.capacity - b.capacity,
             sortDirections: ['descend', 'ascend'],
         },
         {
@@ -170,7 +190,7 @@ console.log(props)
             dataIndex: 'price',
             key: 'price',
             ...getColumnSearchProps('price'),
-            sorter: (a, b) => a.price.length - b.price.length,
+            sorter: (a, b) => a.price - b.price,
             sortDirections: ['descend', 'ascend'],
             render: (_, record) => (
                 <span>{record.price} Dh</span>
@@ -192,36 +212,26 @@ console.log(props)
                 <Image
                     width={50}
                     height={60}
-                    src="https://thumbs.dreamstime.com/b/stade-de-football-13647873.jpg"
+                    src={"http://localhost:8080/api/storage?filePath="+record.images[0]?.name}
                 />
             ),
         },
         {
             title: 'Action',
             key: 'action',
+            dataIndex: 'action',
             render: (_, record) => (
+                <Space size="middle">
                 <Dropdown
-                    menu={
-                        [
-                            {
-                                label: <Link href={"/admin/pitches/"+record.id}>Edit</Link>,
-                                key: '0',
-                            },
-                            {
-                                label: <a href="https://www.aliyun.com">Delete</a>,
-                                key: '1',
-                            },
-                        ]
-                    }
-                    trigger={['click']}
+                    menu={{
+                        menuItems,
+                    }}
                 >
-                    <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                            Action
-                            <DownOutlined />
-                        </Space>
+                    <a >
+                            Hover me
                     </a>
                 </Dropdown>
+                </Space>
             ),
 
         },
@@ -233,6 +243,19 @@ console.log(props)
             <SideMenue/>
             <div className="container mt-5">
                 <h3 className="text-center mb-5">List Pitches</h3>
+                <Dropdown
+                    menu={{
+                        menuItems,
+                    }}
+                    trigger={['click']}
+                >
+                    <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                            Click me
+                            <DownOutlined />
+                        </Space>
+                    </a>
+                </Dropdown>
 
 
                 <Table columns={columns} dataSource={props.data}   pagination={tableParams.pagination}
