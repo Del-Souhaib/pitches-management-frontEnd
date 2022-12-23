@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
-    "antd": "^5.0.5",
+    "antd": "^5.1.0",
     "bootstrap": "^4.4.1",
+    "fontawesome-4.7": "^4.7.0",
     "next": "13.0.6",
+    "owl.carousel": "^2.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-highlight-words": "^0.18.0"
