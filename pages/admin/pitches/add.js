@@ -1,7 +1,8 @@
 import SideMenue from "../parts/sideMenue";
-import {Button, Checkbox, Form, Input, Radio, Select, Upload, InputNumber, Modal} from "antd";
+import {Button, Checkbox, Form, Input, Radio, Select, Upload, InputNumber, Modal, Dropdown, Space} from "antd";
 import {useState} from "react";
 import {useRouter} from "next/router";
+import {DownOutlined} from "@ant-design/icons";
 // import ImgCrop from 'antd-img-crop';
 
 
@@ -68,6 +69,23 @@ const addUser = (props)=> {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    const menuItems = [
+        {
+            label: <a href="https://www.antgroup.com">1st menu item</a>,
+            key: '0',
+        },
+        {
+            label: <a href="https://www.aliyun.com">2nd menu item</a>,
+            key: '1',
+        },
+        {
+            type: 'divider',
+        },
+        {
+            label: '3rd menu item',
+            key: '3',
+        },
+    ];
 
     return (
         <>
@@ -76,6 +94,19 @@ const addUser = (props)=> {
                 <SideMenue/>
                 <div className="container mt-5">
                     <h3 className="text-center mb-5">Add Pitch</h3>
+                    <Dropdown
+                        menu={{
+                            menuItems,
+                        }}
+                    >
+                        <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                                Hover me
+                                <DownOutlined />
+                            </Space>
+                        </a>
+                    </Dropdown>
+
                     <Form
                         name="basic"
                         labelCol={{
