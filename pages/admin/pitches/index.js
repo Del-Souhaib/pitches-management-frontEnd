@@ -2,7 +2,7 @@ import {Button, Dropdown, Input, Space, Table,Image} from "antd";
 import {useRef, useState} from "react";
 import {DownOutlined, SearchOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
-import SideMenue from "../parts/sideMenue";
+import SideMenue from "../../../components/parts/admin/sideMenue";
 import Link from "next/link";
 
 

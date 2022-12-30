@@ -1,4 +1,4 @@
-import SideMenue from "../parts/sideMenue";
+import SideMenue from "../../../components/parts/admin/sideMenue";
 import {Button, Checkbox, Form, Input, Radio, Select} from "antd";
 import {useState} from "react";
 import {useRouter} from "next/router";

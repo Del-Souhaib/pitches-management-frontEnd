@@ -2,7 +2,7 @@ import {Button, Input, Space, Table} from "antd";
 import {useRef, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
-import SideMenue from "../parts/sideMenue";
+import SideMenue from "../../../components/parts/admin/sideMenue";
 
 
 const Users=(props)=>{
