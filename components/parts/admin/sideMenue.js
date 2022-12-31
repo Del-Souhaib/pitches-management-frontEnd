@@ -27,7 +27,7 @@ const items = [
     ]),
     getItem('Pitches', 'sub2', <TableOutlined />, [
         getItem(<Link href="/admin/pitches">List</Link>, '4'),
-        getItem('Add', '5'),
+        getItem(<Link href="/admin/pitches/add">Add</Link>, '5'),
     ]),
     getItem('Reservations', '6', <AuditOutlined />),
 

@@ -3,11 +3,11 @@ import {Button, Checkbox, Form, Input, Radio, Select, Upload, InputNumber, Modal
 import {useState} from "react";
 import {useRouter} from "next/router";
 import {DownOutlined} from "@ant-design/icons";
-// import ImgCrop from 'antd-img-crop';
+import ImgCrop from "antd-img-crop";
 
 
 const {Option} = Select;
-const { TextArea } = Input;
+const {TextArea} = Input;
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -16,7 +16,7 @@ const getBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 
-const addUser = (props)=> {
+const addUser = (props) => {
     const router = useRouter();
 
     const [fileList, setFileList] = useState([]);
@@ -26,6 +26,7 @@ const addUser = (props)=> {
 
     const onChange = ({ fileList: newFileList }) => {
         setFileList(newFileList);
+        console.log(fileList)
     };
     const handleCancel = () => setPreviewOpen(false);
 
@@ -44,9 +45,8 @@ const addUser = (props)=> {
         const formData = new FormData();
 
 
-        for(let i=0;i<fileList.length;i++){
+        for (let i = 0; i < fileList.length; i++) {
             formData.append('dataImages', fileList[i].originFileObj);
-            console.log(values.images.fileList[i].originFileObj)
         }
         delete values.images
 
@@ -54,12 +54,11 @@ const addUser = (props)=> {
 
         fetch('http://localhost:8080/api/pitches', {
             method: 'POST', // or 'PUT'
-            headers: {
-            },
+            headers: {},
             body: formData,
         })
             .then((data) => {
-                // router.push("/admin/pitches")
+                router.push("/admin/pitches")
                 console.log('Success:', data);
             })
             .catch((error) => {
@@ -102,7 +101,7 @@ const addUser = (props)=> {
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
                                 Hover me
-                                <DownOutlined />
+                                <DownOutlined/>
                             </Space>
                         </a>
                     </Dropdown>
@@ -150,7 +149,7 @@ const addUser = (props)=> {
                                     ]}
                                 >
                                     <Select
-                                        style={{ width: 120 }}
+                                        style={{width: 120}}
                                         options={[
                                             {
                                                 value: 'Football',
@@ -165,26 +164,12 @@ const addUser = (props)=> {
                                     />
                                 </Form.Item>
                             </div>
-                            <div className="col-12">
-                                <Form.Item
-                                    label="Description"
-                                    name="description"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input  description!',
-                                        },
-                                    ]}
-                                >
-                                    <TextArea rows={4}/>
-                                </Form.Item>
-                            </div>
 
                             <div className="col-6">
                                 <Form.Item
                                     label="Capacity"
                                     name="capacity"
-                                    style={{width:'100%'}}
+                                    style={{width: '100%'}}
                                     rules={[
                                         {
                                             required: true,
@@ -193,14 +178,14 @@ const addUser = (props)=> {
                                     ]}
                                 >
 
-                                    <InputNumber />
+                                    <InputNumber/>
                                 </Form.Item>
                             </div>
                             <div className="col-6">
                                 <Form.Item
                                     label="Price"
                                     name="price"
-                                    style={{width:'100%'}}
+                                    style={{width: '100%'}}
                                     rules={[
                                         {
                                             required: true,
@@ -209,7 +194,7 @@ const addUser = (props)=> {
                                     ]}
                                 >
 
-                                    <InputNumber />
+                                    <InputNumber/>
                                 </Form.Item>
                             </div>
 
@@ -226,10 +211,24 @@ const addUser = (props)=> {
                                     </Select>
                                 </Form.Item>
                             </div>
+                            <div className="col-6">
+                                <Form.Item
+                                    label="Ville"
+                                    name="ville_id"
+                                >
+                                    <Select
+                                        placeholder="Is ptich covred"
+                                        allowClear>
+                                        {props.villes.map(ville =>
+                                            <Option value={ville.id}>{ville.name}</Option>
+                                        )}
+                                    </Select>
+                                </Form.Item>
+                            </div>
 
                             <div className="col-6">
                                 <Form.Item
-                                    label="location"
+                                    label="Address"
                                     name="location"
                                     rules={[
                                         {
@@ -238,36 +237,25 @@ const addUser = (props)=> {
                                         },
                                     ]}
                                 >
-                                    <Select
-                                        placeholder="Select a pitch location"
-                                        allowClear>
-                                        <Option value="Azli">Azli</Option>
-                                        <Option value="Gueliz">Gueliz</Option>
-                                    </Select>
+                                    <Input/>
                                 </Form.Item>
                             </div>
                             <div className="col-6">
                                 <Form.Item
                                     label="Images"
                                     name="images"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input images!',
-                                        },
-                                    ]}
+
                                 >
-                                    {/*<ImgCrop rotate>*/}
+                                    <ImgCrop rotate aspect="1.2">
                                         <Upload
-                                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                            action="/api/uploadImage"
                                             listType="picture-card"
                                             fileList={fileList}
                                             onChange={onChange}
-                                            onPreview={onPreview}
-                                        >
-                                            {fileList?.length < 5 && '+ Upload'}
+                                            onPreview={onPreview}>
+                                            Upload
                                         </Upload>
-                                    {/*</ImgCrop>*/}
+                                    </ImgCrop>
 
                                 </Form.Item>
                             </div>
@@ -289,7 +277,6 @@ const addUser = (props)=> {
             </div>
 
 
-
             <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img
                     alt="example"
@@ -306,3 +293,12 @@ const addUser = (props)=> {
 }
 
 export default addUser
+
+export async function getServerSideProps(context) {
+
+    const res2 = await fetch(`http://localhost:8080/api/villes`)
+    const villes = await res2.json()
+
+    // Pass data to the page via props
+    return {props: {villes}}
+}

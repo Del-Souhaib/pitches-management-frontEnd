@@ -1,84 +1,74 @@
 
-import bgContact from "../../../public/img/contact-form-bg.jpg"
-import bg1 from "../../../public/img/slider-bg-1.jpg";
 
 export default function FooterClient(){
 
     return (
-        <footer className="footer-section">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-lg-6">
-                        <div className="map-location">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d33245.297803635964!2d-73.76987401620775!3d40.704774398815005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1575866843291!5m2!1sen!2sbd" style={{border: 0}} allowFullScreen />
-                            <div className="map-widget">
-                                <i className="fa fa-map-marker" />
-                                <div className="map-address">
-                                    <img src="img/map-location.jpg" alt="" />
-                                    <ul className="map-text">
-                                        <li><span>Address:</span> Iris Watson, Box 283, NY</li>
-                                        <li><span>Phone:</span> 12-456-791</li>
-                                    </ul>
-                                </div>
-                            </div>
+        <div className="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
+            <div className="container pb-5">
+                <div className="row g-5">
+                    <div className="col-md-6 col-lg-4">
+                        <div className="bg-primary rounded p-4">
+                            <a href="index.html"><h1 className="text-white text-uppercase mb-3">Hotelier</h1></a>
+                            <p className="text-white mb-0">
+                                Download <a className="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro">Hotelier – Premium Version</a>, build a professional website for your hotel business and grab the attention of new visitors upon your site’s launch.
+                            </p>
                         </div>
                     </div>
-                    <div className="col-lg-6">
-                        <div className="footer-form set-bg" data-setbg="img/contact-form-bg.jpg" style={{backgroundImage: `url(${bgContact.src})`}}>
-                            <div className="row">
-                                <div className="col-lg-10">
-                                    <div className="section-title">
-                                        <h2>Request A Call Back</h2>
-                                        <p>Shape your body and burn fat with strength training. With the right equipment
-                                            such as free weights or resistance machines.</p>
-                                    </div>
-                                    <form action="#">
-                                        <div className="row">
-                                            <div className="col-lg-6">
-                                                <input type="text" placeholder="Name" />
-                                            </div>
-                                            <div className="col-lg-6">
-                                                <input type="text" placeholder="Email" />
-                                            </div>
-                                            <div className="col-lg-12">
-                                                <input type="text" placeholder="Subject" />
-                                                <textarea placeholder="Message" defaultValue={""} />
-                                                <button type="submit">Submit <i className="ti-angle-double-right" /></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                    <div className="col-md-6 col-lg-3">
+                        <h6 className="section-title text-start text-primary text-uppercase mb-4">Contact</h6>
+                        <p className="mb-2"><i className="fa fa-map-marker-alt me-3" />123 Street, New York, USA</p>
+                        <p className="mb-2"><i className="fa fa-phone-alt me-3" />+012 345 67890</p>
+                        <p className="mb-2"><i className="fa fa-envelope me-3" />info@example.com</p>
+                        <div className="d-flex pt-2">
+                            <a className="btn btn-outline-light btn-social" href><i className="fab fa-twitter" /></a>
+                            <a className="btn btn-outline-light btn-social" href><i className="fab fa-facebook-f" /></a>
+                            <a className="btn btn-outline-light btn-social" href><i className="fab fa-youtube" /></a>
+                            <a className="btn btn-outline-light btn-social" href><i className="fab fa-linkedin-in" /></a>
+                        </div>
+                    </div>
+                    <div className="col-lg-5 col-md-12">
+                        <div className="row gy-5 g-4">
+                            <div className="col-md-6">
+                                <h6 className="section-title text-start text-primary text-uppercase mb-4">Company</h6>
+                                <a className="btn btn-link" href>About Us</a>
+                                <a className="btn btn-link" href>Contact Us</a>
+                                <a className="btn btn-link" href>Privacy Policy</a>
+                                <a className="btn btn-link" href>Terms &amp; Condition</a>
+                                <a className="btn btn-link" href>Support</a>
+                            </div>
+                            <div className="col-md-6">
+                                <h6 className="section-title text-start text-primary text-uppercase mb-4">Services</h6>
+                                <a className="btn btn-link" href>Food &amp; Restaurant</a>
+                                <a className="btn btn-link" href>Spa &amp; Fitness</a>
+                                <a className="btn btn-link" href>Sports &amp; Gaming</a>
+                                <a className="btn btn-link" href>Event &amp; Party</a>
+                                <a className="btn btn-link" href>GYM &amp; Yoga</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="register">
-                <div className="container">
+            <div className="container">
+                <div className="copyright">
                     <div className="row">
-                        <div className="col-lg-12">
-                            <div className="copyright">
-                                {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                                Copyright © All rights reserved | This template is made with <i className="fa fa-heart-o" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                            </div>
-                            <div className="footer-widget">
-                                <ul>
-                                    <li>Privacy Policy</li>
-                                    <li>Terms Of Service</li>
-                                    <li>Careers</li>
-                                </ul>
-                            </div>
-                            <div className="footer-links">
-                                <a href="#"><i className="fa fa-facebook" /></a>
-                                <a href="#"><i className="fa fa-twitter" /></a>
-                                <a href="#"><i className="fa fa-instagram" /></a>
+                        <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            © <a className="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+                            {/*/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. *** /*/}
+                            Designed By <a className="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                            <br />Distributed By: <a className="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                        </div>
+                        <div className="col-md-6 text-center text-md-end">
+                            <div className="footer-menu">
+                                <a href>Home</a>
+                                <a href>Cookies</a>
+                                <a href>Help</a>
+                                <a href>FQAs</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
 
     )
 }

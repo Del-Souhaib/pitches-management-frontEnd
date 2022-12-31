@@ -151,11 +151,15 @@ console.log(props)
             ...getColumnSearchProps('name'),
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-            sorter: (a, b) => a.description.length - b.description.length,
-            ...getColumnSearchProps('description'),
+            title: 'Ville',
+            dataIndex: 'ville_name',
+            key: 'ville_name',
+            sorter: (a, b) => a.ville.name.length - b.ville.name.length,
+            ...getColumnSearchProps('ville_name'),
+            render: (_, record) => (
+                <span>{record.ville?.name}</span>
+            ),
+
         },
         {
             title: 'Type',

@@ -16,8 +16,9 @@
     "@fullcalendar/react": "^6.0.2",
     "@fullcalendar/resource-timeline": "^6.0.2",
     "@fullcalendar/timegrid": "^6.0.2",
-    "antd": "^5.1.0",
-    "bootstrap": "^4.4.1",
+    "antd": "^5.1.2",
+    "bootstrap": "^5.0.0",
+    "bootstrap-icons": "^1.4.1",
     "fontawesome-4.7": "^4.7.0",
     "moment": "^2.29.4",
     "next": "13.0.6",
@@ -25,5 +26,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-highlight-words": "^0.18.0"
+  },
+  "devDependencies": {
+    "antd-img-crop": "^4.2.8"
   }
 }

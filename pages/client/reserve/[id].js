@@ -4,14 +4,15 @@ import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 import Head from "next/head";
-import HeaderClient from "../../../../components/parts/clients/header";
-import FooterClient from "../../../../components/parts/clients/footer";
+import HeaderClient from "../../../components/parts/clients/header";
+import FooterClient from "../../../components/parts/clients/footer";
 import {useState} from "react";
 import {ExclamationCircleFilled} from "@ant-design/icons";
 import {Button, Modal, Space} from 'antd';
 import moment from 'moment';
 import Link from "next/link";
-import JsFiles from "../../../../components/parts/packages/jsFiles";
+import JsFiles from "../../../components/parts/packages/jsFiles";
+import StadiumRecherche from "../../../components/parts/clients/search";
 
 const {confirm} = Modal;
 
@@ -119,7 +120,24 @@ export default function SpecificPitch(props) {
 
             <HeaderClient/>
             <main>
-                <div className="container latest-news-section" style={{marginTop: 100}}>
+                <div className="container-fluid page-header mb-5 p-0" style={{backgroundImage: 'url(img/carousel-1.jpg)'}}>
+                    <div className="container-fluid page-header-inner py-5">
+                        <div className="container text-center pb-5">
+                            <h1 className="display-3 text-white mb-3 animated slideInDown">Reservation</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol className="breadcrumb justify-content-center text-uppercase">
+                                    <li className="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li className="breadcrumb-item"><a href="#">Pages</a></li>
+                                    <li className="breadcrumb-item text-white active" aria-current="page">Rooms</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <StadiumRecherche villes={props.villes}/>
+
+                <div className="container-xxl py-5" style={{marginTop: 100}}>
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                         events={events}
@@ -138,7 +156,7 @@ export default function SpecificPitch(props) {
                     />
                 </div>
             </main>
-            <FooterClient/>
+            {/*<FooterClient/>*/}
 
             <JsFiles/>
 
@@ -156,6 +174,10 @@ export async function getServerSideProps(context) {
     const res2 = await fetch(`http://localhost:8080/api/reservations/byPitch/` + id)
     const reservations = await res2.json()
 
+    const res3= await fetch(`http://localhost:8080/api/villes`)
+    const villes = await res3.json()
+
+
     // Pass data to the page via props
-    return {props: {pitch, reservations}}
+    return {props: {pitch, reservations,villes}}
 }
