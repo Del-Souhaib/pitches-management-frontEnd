@@ -1,8 +1,49 @@
 import {Image} from 'antd';
 import Link from "next/link";
+import Cookies from "js-cookie";
+import UseUserInfo from "../../../hooks/useUserInfo";
+import UseLogout from "../../../hooks/useLogout";
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
 
 
 export default function HeaderClient() {
+    const route = useRouter()
+    const [element,setElement]=useState(<Link href="/client/auth/login"
+                                              className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i
+        className="fa fa-arrow-right ms-3"/></Link>)
+
+    let user = UseUserInfo('client')
+    console.log('header')
+    console.log(user?.fullName)
+
+    function IsLoged() {
+        if (user) {
+            return (<Link href="/"
+                             className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"
+                             data-bs-toggle="dropdown">Profile</Link>)
+        } else {
+            return (<Link href="/client/auth/login"
+                  className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i
+                className="fa fa-arrow-right ms-3"/></Link>)
+        }
+    }
+
+    useEffect(() => {
+        if (user) {
+            setElement(<Link href="/"
+                            className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"
+                            data-bs-toggle="dropdown">{user?.fullName}</Link>)
+        }
+
+    },[user])
+
+
+    function handleLogout() {
+        console.log("logout function")
+        UseLogout('client')
+        route.push('/client/auth/login')
+    }
 
     return (
         <div className="container-fluid bg-dark px-0">
@@ -58,10 +99,14 @@ export default function HeaderClient() {
                                     </div>
                                 </div>
                                 <a href="contact.html" className="nav-item nav-link">Contact</a>
+                                <a href="#" className="nav-item nav-link"
+                                   onClick={handleLogout}>Logout
+                                    <i className="fa fa-arrow-right ms-3"/>
+                                </a>
+
                             </div>
-                            <Link href="/client/auth/login"
-                               className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i
-                                className="fa fa-arrow-right ms-3"/></Link>
+
+                            {element}
                         </div>
                     </nav>
                 </div>

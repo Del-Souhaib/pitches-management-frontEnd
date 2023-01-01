@@ -3,7 +3,6 @@ import Link from "next/link";
 
 
 export default function StadiumsList(props) {
-    console.log(props)
     return (
         <>
             <div className="container-xxl py-5">
