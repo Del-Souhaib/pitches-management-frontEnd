@@ -206,7 +206,7 @@ export default function ClientLogin(props) {
                                             // loginSubmit(values)
                                             console.log('here'+login)
                                             setLogin(JSON.stringify(values))
-                                            route.push('/')
+                                            // route.push('/')
 
                                         }}
                                     >

@@ -9,34 +9,17 @@ import {useEffect, useState} from "react";
 
 export default function HeaderClient() {
     const route = useRouter()
-    const [element,setElement]=useState(<Link href="/client/auth/login"
-                                              className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i
-        className="fa fa-arrow-right ms-3"/></Link>)
+    const [isLogged, setIsLogged] = useState(false)
 
     let user = UseUserInfo('client')
-    console.log('header')
-    console.log(user?.fullName)
 
-    function IsLoged() {
-        if (user) {
-            return (<Link href="/"
-                             className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"
-                             data-bs-toggle="dropdown">Profile</Link>)
-        } else {
-            return (<Link href="/client/auth/login"
-                  className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i
-                className="fa fa-arrow-right ms-3"/></Link>)
-        }
-    }
 
     useEffect(() => {
         if (user) {
-            setElement(<Link href="/"
-                            className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"
-                            data-bs-toggle="dropdown">{user?.fullName}</Link>)
+            setIsLogged(true)
         }
 
-    },[user])
+    }, [])
 
 
     function handleLogout() {
@@ -90,23 +73,27 @@ export default function HeaderClient() {
                                 <Link href="about.html" className="nav-item nav-link">About</Link>
                                 <Link href="service.html" className="nav-item nav-link">Services</Link>
                                 <Link href="/client/stadium" className="nav-item nav-link">Stadiums</Link>
-                                <div className="nav-item dropdown">
-                                    <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                                    <div className="dropdown-menu rounded-0 m-0">
-                                        <a href="booking.html" className="dropdown-item">Booking</a>
-                                        <a href="team.html" className="dropdown-item">Our Team</a>
-                                        <a href="testimonial.html" className="dropdown-item">Testimonial</a>
-                                    </div>
-                                </div>
                                 <a href="contact.html" className="nav-item nav-link">Contact</a>
-                                <a href="#" className="nav-item nav-link"
-                                   onClick={handleLogout}>Logout
-                                    <i className="fa fa-arrow-right ms-3"/>
-                                </a>
-
                             </div>
 
-                            {element}
+                            {isLogged ?
+                                <div className="dropdown">
+                                    <button className="dropdown-toggle btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {user?.fullName}
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                        <li><Link className="dropdown-item" href="/client/profile">Profile</Link></li>
+                                        <li><Link className="dropdown-item" href="/client/profile/reservations">Reservations</Link></li>
+                                        <li><a className="dropdown-item" onClick={handleLogout} href="#">LogOut</a></li>
+                                    </ul>
+                                </div>
+
+                                :
+                                <Link href="/client/auth/login"
+                                      className="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Login<i
+                                    className="fa fa-arrow-right ms-3"/></Link>
+                            }
+
                         </div>
                     </nav>
                 </div>

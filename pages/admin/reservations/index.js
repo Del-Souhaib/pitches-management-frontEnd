@@ -3,6 +3,7 @@ import {useRef, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
 import SideMenue from "../../../components/parts/admin/sideMenue";
+import Link from "next/link";
 
 
 const Reservations=(props)=>{
@@ -115,56 +116,43 @@ const Reservations=(props)=>{
     });
     const columns = [
         {
-            title: 'First Name',
-            dataIndex: 'first_name',
-            key: 'first_name',
-            sorter: (a, b) => a.first_name.length - b.first_name.length,
-            ...getColumnSearchProps('first_name'),
+            title: 'Date Match',
+            dataIndex: 'dateReservation',
+            key: 'dateReservation',
+            sorter: (a, b) => a.dateReservation.length - b.dateReservation.length,
+            ...getColumnSearchProps('dateReservation'),
         },
         {
-            title: 'Last Name',
-            dataIndex: 'last_name',
-            key: 'last_name',
-            sorter: (a, b) => a.last_name.length - b.last_name.length,
-            ...getColumnSearchProps('age'),
+            title: 'Stadium',
+            dataIndex: 'stadium',
+            key: 'stadium',
+            render: (_, record) => (
+                <Link href={'/client/stadium/' + record.pitch}>Show</Link>
+            ),
+
         },
         {
-            title: 'Location',
-            dataIndex: 'location',
-            key: 'location',
-            ...getColumnSearchProps('address'),
-            sorter: (a, b) => a.location.length - b.location.length,
-            sortDirections: ['descend', 'ascend'],
-        },
-        {
-            title: 'Email',
+            title: 'PAYMENTS',
             dataIndex: 'email',
             key: 'email',
             ...getColumnSearchProps('address'),
             sorter: (a, b) => a.email.length - b.email.length,
             sortDirections: ['descend', 'ascend'],
         },
+
         {
-            title: 'Phone',
-            dataIndex: 'phone',
-            key: 'phone',
+            title: 'Date de reservation',
+            dataIndex: 'created_at',
+            key: 'created_at',
             ...getColumnSearchProps('address'),
-            sorter: (a, b) => a.phone.length - b.phone.length,
-            sortDirections: ['descend', 'ascend'],
-        },
-        {
-            title: 'Role',
-            dataIndex: 'role.name',
-            key: 'role.name',
-            ...getColumnSearchProps('address'),
-            sorter: (a, b) => a.role.name.length - b.role.name.length,
+            sorter: (a, b) => a.location.length - b.location.length,
             sortDirections: ['descend', 'ascend'],
         },
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
-                <p>d</p>
+                <Link href={'client/profile/reservations/'+record.id}>Show</Link>
             ),
 
         },
