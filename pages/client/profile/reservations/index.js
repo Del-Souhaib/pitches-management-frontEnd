@@ -8,6 +8,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import moment from "moment";
 
 
 export default function ClientReservations(props) {
@@ -15,9 +16,7 @@ export default function ClientReservations(props) {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef(null);
-    console.log("reser")
 
-    console.log(props)
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
         setSearchText(selectedKeys[0]);
@@ -130,6 +129,9 @@ export default function ClientReservations(props) {
             key: 'dateReservation',
             sorter: (a, b) => a.dateReservation.length - b.dateReservation.length,
             ...getColumnSearchProps('dateReservation'),
+            render: (_, record) => (
+                moment(record.dateReservation).format('DD/MM/y HH:mm')
+            ),
         },
         {
             title: 'Stadium',
@@ -138,6 +140,7 @@ export default function ClientReservations(props) {
             render: (_, record) => (
                 <Link href={'/client/stadium/' + record.pitch}>Show</Link>
             ),
+
 
         },
         {
@@ -156,12 +159,16 @@ export default function ClientReservations(props) {
             ...getColumnSearchProps('address'),
             sorter: (a, b) => a.location.length - b.location.length,
             sortDirections: ['descend', 'ascend'],
+            render: (_, record) => (
+                moment(record.created_at).format('DD/MM/y HH:mm')
+            ),
+
         },
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
-                <Link href={'client/profile/reservations/'+record.id}>Show</Link>
+                <Link href={'/client/profile/reservations/' + record.id}>Show</Link>
             ),
 
         },
@@ -200,7 +207,7 @@ export default function ClientReservations(props) {
                     <div className="container">
                         <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
                             <h6 className="section-title text-center text-primary text-uppercase">Profile</h6>
-                            <h1 className="mb-5">Your  <span
+                            <h1 className="mb-5">Your <span
                                 className="text-primary text-uppercase">Reservations</span>
                             </h1>
                         </div>
