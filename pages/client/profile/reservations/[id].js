@@ -183,11 +183,26 @@ export default function SpecificReservation(props) {
     const columns = [
         {
             title: 'Method',
-            dataIndex: 'type',
-            key: 'type',
-            sorter: (a, b) => a.type.length - b.type.length,
-            ...getColumnSearchProps('type'),
+            dataIndex: 'type_payment',
+            key: 'type_payment',
+            sorter: (a, b) => a.type_payment.length - b.type_payment.length,
+            ...getColumnSearchProps('type_payment'),
         },
+        {
+            title: 'Card Type',
+            dataIndex: 'card_type',
+            key: 'card_type',
+            sorter: (a, b) => a.card_type.length - b.card_type.length,
+            ...getColumnSearchProps('card_type'),
+        },
+        {
+            title: 'Card Number',
+            dataIndex: 'card_number',
+            key: 'card_number',
+            sorter: (a, b) => a.card_number.length - b.card_number.length,
+            ...getColumnSearchProps('card_number'),
+        },
+
         {
             title: 'Amount',
             dataIndex: 'amount',
@@ -251,9 +266,9 @@ export default function SpecificReservation(props) {
                                 className="text-primary text-uppercase"> Informations</span></h1>
                         </div>
                         <div className="row g-4 justify-content-center">
-                            <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div className="col-12 wow fadeInUp" data-wow-delay="0.1s">
                                 <Table columns={columns}
-                                    // dataSource={props.reservations}
+                                    dataSource={props.reservation?.payments}
                                 />
                             </div>
                         </div>
@@ -264,7 +279,7 @@ export default function SpecificReservation(props) {
                     <div className="container">
                         <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
                             <h6 className="section-title text-center text-primary text-uppercase">TeamS</h6>
-                            <h1 className="mb-5">Rate your <span className="text-primary text-uppercase">Players</span>
+                            <h1 className="mb-5">Rate your Team <span className="text-primary text-uppercase">Players</span>
                             </h1>
                         </div>
                         <div className="row g-4 justify-content-center">
@@ -361,13 +376,8 @@ export async function getServerSideProps(context) {
     const res3 = await fetch(`http://localhost:8080/api/pitches/` + reservation.pitch)
     const pitch = await res3.json()
 
-    const res4 = await fetch(`http://localhost:8080/api/users/byReservation`, {
-        method: 'POST', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(reservation.players)
-    })
+    const playersIds=reservation.players.map(player => player+',')
+    const res4 = await fetch(`http://localhost:8080/api/users/byReservation?players_ids=`+playersIds)
     const players = await res4.json()
 
 

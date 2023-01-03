@@ -2,6 +2,7 @@
 // import Script from 'next/script'
 // import mainScript from "owl.carousel/dist/owl.carousel"
 // import owlCursor from "owl.carousel/dist/owl.carousel"
+import Script from 'next/script'
 
 export default function jsFiles(){
 

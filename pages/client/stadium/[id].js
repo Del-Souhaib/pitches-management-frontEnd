@@ -11,21 +11,19 @@ import {Image} from "antd";
 
 export default function SpecificPitch(props) {
 
-    function diveded(number){
-        if(number%4===0){
+    function diveded(number) {
+        if (number % 4 === 0) {
             return "w-75"
-        }
-        else if(number%3===0){
-            return  "w-50"
-        }
-        else if(number%2===0){
-            return  "w-100"
-        }
-        else {
+        } else if (number % 3 === 0) {
+            return "w-50"
+        } else if (number % 2 === 0) {
+            return "w-100"
+        } else {
             return "w-75"
         }
 
     }
+
     return (
         <>
             <Head>
@@ -93,51 +91,43 @@ export default function SpecificPitch(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <Link className="btn btn-primary py-3 px-5 mt-2" href={'/reserve/' + props.pitch.id}>Reserve
+                                <Link className="btn btn-primary py-3 px-5 mt-2" href={'/client/reserve/' + props.pitch.id}>Reserve
                                     Now</Link>
                             </div>
                             <div className="col-lg-6">
-                                <div className="row g-3">
-                                    <div id="header-carousel" className="carousel slide" data-bs-ride="carousel">
-                                        <div className="carousel-inner">
-                                        </div>
-                                        <button className="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
-                                            <span className="carousel-control-prev-icon" aria-hidden="true" />
-                                            <span className="visually-hidden">Previous</span>
-                                        </button>
-                                        <button className="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
-                                            <span className="carousel-control-next-icon" aria-hidden="true" />
-                                            <span className="visually-hidden">Next</span>
-                                        </button>
-                                    </div>
+                                <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+                                    <div className="carousel-indicators">
+                                        {props.pitch?.images.map((image, index) =>
 
-                                    {props.pitch?.images.map((image, index) =>
+                                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                data-bs-slide-to={index} className={index==0? "active" : ""} aria-current="true"
+                                                aria-label="Slide 1"/>
+                                        )}
 
-                                        <div className={(index % 2 === 0 ? "col-6 text-end" : "col-6 text-start")}>
+                                    </div>
+                                    <div className="carousel-inner">
+                                        {props.pitch?.images.map((image, index) =>
 
-                                            <Image className={"img-fluid rounded  wow zoomIn "+diveded(index+1)} data-wow-delay="0.1s"
-                                                   src={"http://localhost:8080/api/storage?filePath=" + image.name}
-                                                   />
-                                        </div>
-                                    )}
-                                    {/*src={"http://localhost:8080/api/storage?filePath=" + props.pitch?.images[0]?.name}*/}
-                                    <div className="col-6 text-end">
-                                        <img className="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s"
-                                             src="img/about-1.jpg" style={{marginTop: '25%'}}/>
+                                            <div className={index == 0?"carousel-item active" : "carousel-item "}>
+                                                <img src={"http://localhost:8080/api/storage?filePath=" + image.name} className="d-block w-100" alt="..."/>
+                                            </div>
+                                        )}
+
                                     </div>
-                                    <div className="col-6 text-start">
-                                        <img className="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s"
-                                             src="img/about-2.jpg"/>
-                                    </div>
-                                    <div className="col-6 text-end">
-                                        <img className="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s"
-                                             src="img/about-3.jpg"/>
-                                    </div>
-                                    <div className="col-6 text-start">
-                                        <img className="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s"
-                                             src="img/about-4.jpg"/>
-                                    </div>
+                                    <button className="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                        <span className="carousel-control-prev-icon" aria-hidden="true"/>
+                                        <span className="visually-hidden">Previous</span>
+                                    </button>
+                                    <button className="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                        <span className="carousel-control-next-icon" aria-hidden="true"/>
+                                        <span className="visually-hidden">Next</span>
+                                    </button>
                                 </div>
+
+
+
                             </div>
                         </div>
                     </div>
