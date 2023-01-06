@@ -1,16 +1,17 @@
-import {Button, Dropdown, Input, Space, Table,Image} from "antd";
+import {Button, Dropdown, Input, Space, Table, Image,Modal} from "antd";
 import {useRef, useState} from "react";
-import {DownOutlined, SearchOutlined} from "@ant-design/icons";
+import {DownOutlined, SearchOutlined, SmileOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
 import SideMenue from "../../../components/parts/admin/sideMenue";
 import Link from "next/link";
 
 
-const Pitches=(props)=>{
-console.log(props)
+const Pitches = (props) => {
+    console.log(props)
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef(null);
+    const [data,setData]=useState(props?.data)
     const [tableParams, setTableParams] = useState({
         pagination: {
             current: 1,
@@ -28,7 +29,7 @@ console.log(props)
         setSearchText('');
     };
     const getColumnSearchProps = (dataIndex) => ({
-        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+        filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters, close}) => (
             <div
                 style={{
                     padding: 8,
@@ -50,7 +51,7 @@ console.log(props)
                     <Button
                         type="primary"
                         onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                        icon={<SearchOutlined />}
+                        icon={<SearchOutlined/>}
                         size="small"
                         style={{
                             width: 90,
@@ -122,25 +123,34 @@ console.log(props)
             ),
     });
 
+    const warningModal = (e) => {
+        Modal.warning({
+            title: 'Delete warnning' ,
+            content: 'Do you want delete this record ?',
+            onOk() {
+                fetch('http://localhost:8080/api/pitches/'+e,
+                    {
+                        method: 'DELETE',
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        setData(data)
+                        success()
+                    });
 
-    const menuItems = [
-        {
-            label: <a href="https://www.antgroup.com">1st menu item</a>,
-            key: '0',
-        },
-        {
-            label: <a href="https://www.aliyun.com">2nd menu item</a>,
-            key: '1',
-        },
-        {
-            type: 'divider',
-        },
-        {
-            label: '3rd menu item',
-            key: '3',
-        },
-    ];
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
 
+
+        });
+    };
+    const success = () => {
+        Modal.success({
+            content: 'Record Deleted Success',
+        });
+    };
 
     const columns = [
         {
@@ -185,7 +195,7 @@ console.log(props)
             sorter: (a, b) => a.covered.length - b.covered.length,
             sortDirections: ['descend', 'ascend'],
             render: (_, record) => (
-                <span>{record.covered?'Yes' : 'No'}</span>
+                <span>{record.covered ? 'Yes' : 'No'}</span>
             ),
 
         },
@@ -216,7 +226,7 @@ console.log(props)
                 <Image
                     width={50}
                     height={60}
-                    src={"http://localhost:8080/api/storage?filePath="+record.images[0]?.name}
+                    src={"http://localhost:8080/api/storage?filePath=" + record.images[0]?.name}
                 />
             ),
         },
@@ -225,17 +235,13 @@ console.log(props)
             key: 'action',
             dataIndex: 'action',
             render: (_, record) => (
-                <Space size="middle">
-                <Dropdown
-                    menu={{
-                        menuItems,
-                    }}
-                >
-                    <a >
-                            Hover me
-                    </a>
-                </Dropdown>
-                </Space>
+
+                <>
+                    <Space>
+                        <Link href={"/admin/pitches/"+record.id}>Edit</Link>
+                        <a className="text text-danger" onClick={e=>warningModal(record.id)}>Delete</a>
+                    </Space>
+                </>
             ),
 
         },
@@ -247,22 +253,9 @@ console.log(props)
             <SideMenue/>
             <div className="container mt-5">
                 <h3 className="text-center mb-5">List Pitches</h3>
-                <Dropdown
-                    menu={{
-                        menuItems,
-                    }}
-                    trigger={['click']}
-                >
-                    <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                            Click me
-                            <DownOutlined />
-                        </Space>
-                    </a>
-                </Dropdown>
 
 
-                <Table columns={columns} dataSource={props.data}   pagination={tableParams.pagination}
+                <Table columns={columns} dataSource={data} pagination={tableParams.pagination}
                 />
 
             </div>
@@ -277,7 +270,7 @@ export async function getServerSideProps() {
     const data = await res.json()
 
     // Pass data to the page via props
-    return { props: { data } }
+    return {props: {data}}
 }
 
 export default Pitches

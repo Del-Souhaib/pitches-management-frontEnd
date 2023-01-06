@@ -1,13 +1,15 @@
 import Head from "next/head";
 import HeaderClient from "../../../../components/parts/clients/header";
 import JsFiles from "../../../../components/parts/packages/jsFiles";
-import {Button, Input, Rate, Space, Table, Modal} from "antd";
+import {Button, Input, Rate, Space, Table, Modal, Select} from "antd";
 import {useRef, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import moment from "moment";
 import UseUserInfo from "../../../../hooks/useUserInfo";
 import {console} from "next/dist/compiled/@edge-runtime/primitives/console";
+import {Formik} from 'formik';
+import {useRouter} from "next/router";
 
 export default function SpecificReservation(props) {
 
@@ -17,7 +19,9 @@ export default function SpecificReservation(props) {
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef(null);
     const user = UseUserInfo('client')
-
+    const [open, setOpen] = useState(false);
+    const [selectedPlayersIds, setSelectedPlayersIds] = useState(props.allUsers)
+    const router = useRouter()
 
     const success = () => {
         Modal.success({
@@ -25,9 +29,9 @@ export default function SpecificReservation(props) {
         });
     };
 
-    function ratePlayer(e,playerId) {
+    function ratePlayer(e, playerId) {
         console.log("rate player")
-        console.log(e,playerId)
+        console.log(e, playerId)
         fetch('http://localhost:8080/api/playerRates', {
             method: 'POST', // or 'PUT'
             headers: {
@@ -36,7 +40,7 @@ export default function SpecificReservation(props) {
             body: JSON.stringify({
                 nb_stars: e,
                 reservation: props.reservation.id,
-                owner_id : user.userId,
+                owner_id: user.userId,
                 player_id: playerId
             }),
         })
@@ -228,6 +232,37 @@ export default function SpecificReservation(props) {
 
     ];
 
+    const handleInvitePlayerChange = (value) => {
+        setSelectedPlayersIds(value)
+    };
+
+    function invitePlayers() {
+        console.log("clicked")
+        fetch('http://localhost:8080/api/reservations/addPlayerToReservation?reservation_id=' + props.reservation.id + "&&player_id=" + selectedPlayersIds, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((data) => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    // async function closeModalRefreshPlayer() {
+    //     const res4 = await fetch(`http://localhost:8080/api/users/byReservation?players_ids=` + playersIds)
+    //     const players = await res4.json()
+    //     fetch('/api/profile-data')
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setData(data)
+    //             setLoading(false)
+    //         })
+    //
+    // }
     return (
         <>
             <Head>
@@ -239,7 +274,7 @@ export default function SpecificReservation(props) {
             <HeaderClient/>
             <main>
                 <div className="container-fluid page-header mb-5 p-0"
-                     style={{backgroundImage: 'url(img/carousel-1.jpg)'}}>
+                     style={{backgroundImage: 'url(/img/carousel-1.jpg)'}}>
                     <div className="container-fluid page-header-inner py-5">
                         <div className="container text-center pb-5">
                             <h1 className="display-3 text-white mb-3 animated slideInDown">Reservation</h1>
@@ -268,7 +303,7 @@ export default function SpecificReservation(props) {
                         <div className="row g-4 justify-content-center">
                             <div className="col-12 wow fadeInUp" data-wow-delay="0.1s">
                                 <Table columns={columns}
-                                    dataSource={props.reservation?.payments}
+                                       dataSource={props.reservation?.payments}
                                 />
                             </div>
                         </div>
@@ -279,8 +314,14 @@ export default function SpecificReservation(props) {
                     <div className="container">
                         <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
                             <h6 className="section-title text-center text-primary text-uppercase">TeamS</h6>
-                            <h1 className="mb-5">Rate your Team <span className="text-primary text-uppercase">Players</span>
+                            <h1 className="mb-5">Rate your Team <span
+                                className="text-primary text-uppercase">Players</span>
                             </h1>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <button className="btn btn-primary" onClick={() => setOpen(true)}>Invite</button>
+                            </div>
                         </div>
                         <div className="row g-4 justify-content-center">
                             {props.players.map(player =>
@@ -290,8 +331,9 @@ export default function SpecificReservation(props) {
                                             <img className="img-fluid" src="/img/team-1.jpg" alt=""/>
                                         </div>
                                         <div className="text-center p-4 mt-1">
-                                            <h5 className="fw-bold mb-0">{player.first_name+' '+player.last_name}</h5>
-                                            <Rate defaultValue={3} onChange={(e) => ratePlayer(e,player.id)} style={{color: "#FEA116"}}/>;
+                                            <h5 className="fw-bold mb-0">{player.first_name + ' ' + player.last_name}</h5>
+                                            <Rate defaultValue={3} onChange={(e) => ratePlayer(e, player.id)}
+                                                  style={{color: "#FEA116"}}/>;
                                         </div>
                                     </div>
                                 </div>
@@ -299,7 +341,6 @@ export default function SpecificReservation(props) {
                         </div>
                     </div>
                 </div>
-
                 <div className="container-xxl py-5">
                     <div className="container">
                         <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -339,7 +380,7 @@ export default function SpecificReservation(props) {
                                             <small><i className="fa fa-wifi text-primary me-2"/>{props.pitch.type}
                                             </small>
                                         </div>
-                                        <p className="text-body mb-3">{props.pitch.location + ' , ' + props.pitch.ville?.name}</p>
+                                        <p className="text-body mb-3">{props?.pitch?.location + ' ' + props?.pitch?.ville?.name}</p>
                                         <div className="d-flex justify-content-between">
                                             <Rate defaultValue={4} onChange={ratePitch} style={{color: "#FEA116"}}/>;
                                         </div>
@@ -356,7 +397,54 @@ export default function SpecificReservation(props) {
             {/*<FooterClient/>*/}
 
             <JsFiles/>
+            <Modal
+                title="Invite Player"
+                okText="Reserve Now"
+                okClass="btn-primary"
+                centered
+                open={open}
+                footer={null}
+                // onOk={() => setOpen(false)}
+                onCancel={() => router.push('/client/profile/reservations')}
+                width={700}>
+                <div className="container">
+                    <div className="row g-3">
+                        <div className="col-md-6">
+                            <div className="form-floating">
+                                {/*<select className="form-select" name="card_type" onChange={handleChange}>*/}
+                                {/*    <option value="Visa">Visa</option>*/}
+                                {/*    <option value="Master Card">Master Card</option>*/}
+                                {/*</select>*/}
+                                {/*<label htmlFor="select1">Card type</label>*/}
+                                <Select
+                                    mode="multiple"
+                                    style={{
+                                        width: '100%',
+                                    }}
+                                    placeholder="select PLayer Id"
+                                    onChange={handleInvitePlayerChange}
+                                    optionLabelProp="label"
+                                    defaultValue={props.players?.map(player => (player.id))}
+                                >
+                                    {props.allUsers?.map(user =>
+                                        <Select.Option value={user.id} selected
+                                                       label={user.first_name + ' ' + user.last_name}>{user.first_name + ' ' + user.last_name}</Select.Option>
+                                    )}
 
+                                </Select>
+
+                            </div>
+                        </div>
+
+                        <div className="col-12">
+                            <button className="btn btn-primary w-100 py-3" type="button" onClick={invitePlayers}>
+                                Invite Now
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </Modal>
         </>
 
     )
@@ -376,11 +464,13 @@ export async function getServerSideProps(context) {
     const res3 = await fetch(`http://localhost:8080/api/pitches/` + reservation.pitch)
     const pitch = await res3.json()
 
-    const playersIds=reservation.players.map(player => player+',')
-    const res4 = await fetch(`http://localhost:8080/api/users/byReservation?players_ids=`+playersIds)
+    const playersIds = reservation.players.map(player => player + ',')
+    const res4 = await fetch(`http://localhost:8080/api/users/byReservation?players_ids=` + playersIds)
     const players = await res4.json()
 
+    const res5 = await fetch('http://localhost:8080/api/users')
+    const allUsers = await res5.json()
 
     // Pass data to the page via props
-    return {props: {pitch, reservation, players}}
+    return {props: {pitch, reservation, players, allUsers, playersIds}}
 }

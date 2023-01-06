@@ -93,6 +93,26 @@ export default function SpecificPitch(props) {
         console.log(info.event.id)
     }
 
+    function addPayment(values) {
+        fetch('http://localhost:8080/api/payments/' + reservationId, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        })  .then((response) => response.text())
+            .then((data) => {
+                // route.push("/client/profile/reservations/" + reservationId)
+                console.log('Success:', data);
+                // route.push('/client/profile/reservations/'+reservationId)
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+
     return (
         <>
             <Head>
@@ -251,7 +271,7 @@ export default function SpecificPitch(props) {
                         const errors = {};
                         return errors;
                     }}
-                    onSubmit={ (values, {setSubmitting}) => {
+                    onSubmit={(values, {setSubmitting}) => {
 
                         let obj = {
                             owner: UseUserInfo('client').userId,
@@ -259,41 +279,24 @@ export default function SpecificPitch(props) {
                             dateReservation: selectedDate
                         }
 
-                         fetch('http://localhost:8080/api/reservations', {
+                        fetch('http://localhost:8080/api/reservations', {
                             method: 'POST', // or 'PUT'
-                             mode: 'cors', // no-cors, *cors, same-origin
-                             headers: {
+                            headers: {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify(obj),
                         }).then((response) => response.text())
                             .then((data) => {
                                 setReservationId(data)
-                                console.log(data)
-
+                                console.log("success here")
+                                console.log(reservationId)
+                                console.log(reservationId)
+                                addPayment(values)
                                 console.log('Success:', data);
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
                             });
-
-                        fetch('http://localhost:8080/api/payments/63af46cf8fd82c1ef580358f' + reservationId, {
-                            method: 'POST', // or 'PUT'
-                            mode: 'no-cors', // no-cors, *cors, same-origin
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(values),
-                        })
-                            .then((data) => {
-                                // route.push("/client/profile/reservations/" + reservationId)
-                                // console.log('Success:', data);
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error);
-                            });
-
-
                     }}
                 >
                     {({

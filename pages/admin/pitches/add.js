@@ -68,23 +68,6 @@ const addUser = (props) => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    const menuItems = [
-        {
-            label: <a href="https://www.antgroup.com">1st menu item</a>,
-            key: '0',
-        },
-        {
-            label: <a href="https://www.aliyun.com">2nd menu item</a>,
-            key: '1',
-        },
-        {
-            type: 'divider',
-        },
-        {
-            label: '3rd menu item',
-            key: '3',
-        },
-    ];
 
     return (
         <>
@@ -93,18 +76,6 @@ const addUser = (props) => {
                 <SideMenue/>
                 <div className="container mt-5">
                     <h3 className="text-center mb-5">Add Pitch</h3>
-                    <Dropdown
-                        menu={{
-                            menuItems,
-                        }}
-                    >
-                        <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                                Hover me
-                                <DownOutlined/>
-                            </Space>
-                        </a>
-                    </Dropdown>
 
                     <Form
                         name="basic"
@@ -246,7 +217,7 @@ const addUser = (props) => {
                                     name="images"
 
                                 >
-                                    <ImgCrop rotate aspect="1.2">
+                                    <ImgCrop rotate aspect="2.1">
                                         <Upload
                                             action="/api/uploadImage"
                                             listType="picture-card"

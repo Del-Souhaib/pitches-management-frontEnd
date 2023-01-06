@@ -12,12 +12,12 @@ export default function StadiumsList(props) {
                         <h1 className="mb-5">Explore Our <span className="text-primary text-uppercase">Stadiums</span></h1>
                     </div>
                     <div className="row g-4">
-                        {props.pitches.map(pitch=>
-                            <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        {props.pitches?.map((pitch,index)=>
+                            <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" key={index}>
                                 <div className="room-item shadow rounded overflow-hidden">
                                     <div className="position-relative">
                                         <img className="img-fluid" src={"http://localhost:8080/api/storage?filePath=" + pitch?.images[0]?.name} alt="" />
-                                        <small className="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">{pitch.price} Dh/ Player</small>
+                                        <small className="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">{pitch.price} Dh / 1 H</small>
                                     </div>
                                     <div className="p-4 mt-2">
                                         <div className="d-flex justify-content-between mb-3">

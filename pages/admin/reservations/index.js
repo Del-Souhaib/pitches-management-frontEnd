@@ -4,6 +4,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
 import SideMenue from "../../../components/parts/admin/sideMenue";
 import Link from "next/link";
+import moment from "moment";
 
 
 const Reservations=(props)=>{
@@ -135,9 +136,13 @@ const Reservations=(props)=>{
             title: 'PAYMENTS',
             dataIndex: 'email',
             key: 'email',
-            ...getColumnSearchProps('address'),
+            ...getColumnSearchProps('payments_montant'),
             sorter: (a, b) => a.email.length - b.email.length,
             sortDirections: ['descend', 'ascend'],
+            render: (_, record) => (
+                <p>{record.payments[0]? record.payments[0].amount : 10} Dh ({moment(record.payments?.created_at).format("DD/MM/yy")})</p>
+            ),
+
         },
 
         {
@@ -147,6 +152,10 @@ const Reservations=(props)=>{
             ...getColumnSearchProps('address'),
             sorter: (a, b) => a.location.length - b.location.length,
             sortDirections: ['descend', 'ascend'],
+            render: (_, record) => (
+                <p>{moment(record.created_at).format("DD/MM/yy")}</p>
+            ),
+
         },
         {
             title: 'Action',
@@ -183,4 +192,4 @@ export async function getServerSideProps() {
     return { props: { reservations } }
 }
 
-export default Users
+export default Reservations

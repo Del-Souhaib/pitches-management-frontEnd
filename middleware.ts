@@ -8,25 +8,25 @@ export function middleware(request: NextRequest) {
     const admin = request.cookies.get('admin')?.value
 
     console.log(request.nextUrl.pathname)
-    if(admin && request.nextUrl.pathname=='/admin/auth/login'){
-        console.log(1)
-        return NextResponse.redirect(new URL('/admin', request.url))
-    }
-
-    if(client && request.nextUrl.pathname=='/client/auth/login'){
-        console.log(2)
-        return NextResponse.redirect(new URL('/', request.url))
-    }
-    // @ts-ignore
-    if(request.nextUrl.pathname.startsWith('/admin') && ! admin){
-        console.log(3)
-        return NextResponse.redirect(new URL('/admin/auth/login?redirecturl='+request.nextUrl.pathname, request.url))
-    }
-    else if(!client && request.nextUrl.pathname!='/client/auth/login'){
-        console.log(4)
-        return NextResponse.redirect(new URL('/client/auth/login?redirecturl='+request.nextUrl.pathname, request.url))
-
-    }
+    // if(admin && request.nextUrl.pathname=='/admin/auth/login'){
+    //     console.log(1)
+    //     return NextResponse.redirect(new URL('/admin', request.url))
+    // }
+    //
+    // if(client && request.nextUrl.pathname=='/client/auth/login'){
+    //     console.log(2)
+    //     return NextResponse.redirect(new URL('/', request.url))
+    // }
+    // // @ts-ignore
+    // if(request.nextUrl.pathname.startsWith('/admin') && ! admin && !request.nextUrl.pathname.startsWith('/admin/auth')) {
+    //     console.log(3)
+    //     return NextResponse.redirect(new URL('/admin/auth/login?redirecturl='+request.nextUrl.pathname, request.url))
+    // }
+    // else if(!client && request.nextUrl.pathname!='/client/auth/login'){
+    //     console.log(4)
+    //     return NextResponse.redirect(new URL('/client/auth/login?redirecturl='+request.nextUrl.pathname, request.url))
+    //
+    // }
 }
 
 // See "Matching Paths" below to learn more

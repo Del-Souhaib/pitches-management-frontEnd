@@ -18,7 +18,7 @@ import StadiumRecherche from "../../../components/parts/clients/search";
 const {confirm} = Modal;
 
 export default function SpecificPitch(props) {
-console.log(props)
+    console.log(props)
     return (
         <>
             <Head>
@@ -29,7 +29,8 @@ console.log(props)
 
             <HeaderClient/>
             <main className="mb-5">
-                <div className="container-fluid page-header mb-5 p-0" style={{backgroundImage: 'url(img/carousel-1.jpg)'}}>
+                <div className="container-fluid page-header mb-5 p-0"
+                     style={{backgroundImage: 'url(/img/carousel-1.jpg)'}}>
                     <div className="container-fluid page-header-inner py-5">
                         <div className="container text-center pb-5">
                             <h1 className="display-3 text-white mb-3 animated slideInDown">Stadiums</h1>
@@ -45,7 +46,7 @@ console.log(props)
 
                 <StadiumRecherche villes={props.villes}/>
 
-                    <StadiumsList pitches={props.pitchs}/>
+                <StadiumsList pitches={props.pitchs}/>
             </main>
             {/*<FooterClient/>*/}
 
@@ -66,5 +67,5 @@ export async function getServerSideProps(context) {
     const villes = await res2.json()
 
     // Pass data to the page via props
-    return {props: {pitchs,villes}}
+    return {props: {pitchs, villes}}
 }

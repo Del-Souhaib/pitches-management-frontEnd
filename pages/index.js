@@ -8,6 +8,7 @@ import {Image} from 'antd';
 import JsFiles from "../components/parts/packages/jsFiles";
 import StadiumsList from "../components/parts/clients/stadiums";
 import StadiumRecherche from "../components/parts/clients/search";
+import Link from "next/link";
 
 export default function Home(props) {
     return (
@@ -27,24 +28,24 @@ export default function Home(props) {
                         <div id="header-carousel" className="carousel slide" data-bs-ride="carousel">
                             <div className="carousel-inner">
                                 <div className="carousel-item active">
-                                    <img className="w-100" src="img/carousel-1.jpg" alt="Image" />
+                                    <img className="w-100" src="img/carousel-1.jpg" alt="Image" style={{height:'80vh'}} />
                                     <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                         <div className="p-3" style={{maxWidth: '700px'}}>
-                                            <h6 className="section-title text-white text-uppercase mb-3 animated slideInDown">Luxury Living</h6>
-                                            <h1 className="display-3 text-white mb-4 animated slideInDown">Discover A Brand Luxurious Hotel</h1>
-                                            <a href className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
-                                            <a href className="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
+                                            <h6 className="section-title text-white text-uppercase mb-3 animated slideInDown">my Stadiums</h6>
+                                            <h1 className="display-3 text-white mb-4 animated slideInDown">Discover Our Stadiums </h1>
+                                            <Link href="/client/stadium" className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Stadiums</Link>
+                                            <Link href="/client/stadium" className="btn btn-light py-md-3 px-md-5 animated slideInRight">Reserve a  Stadium</Link>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="carousel-item">
-                                    <img className="w-100" src="img/carousel-2.jpg" alt="Image" />
+                                    <img className="w-100" src="img/carousel-2.jpg" alt="Image" style={{height:'80vh'}}/>
                                     <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                         <div className="p-3" style={{maxWidth: '700px'}}>
-                                            <h6 className="section-title text-white text-uppercase mb-3 animated slideInDown">Luxury Living</h6>
-                                            <h1 className="display-3 text-white mb-4 animated slideInDown">Discover A Brand Luxurious Hotel</h1>
-                                            <a href className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
-                                            <a href className="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
+                                            <h6 className="section-title text-white text-uppercase mb-3 animated slideInDown">my Stadiums</h6>
+                                            <h1 className="display-3 text-white mb-4 animated slideInDown">Discover Our Stadiums</h1>
+                                            <Link href="/client/stadium" className="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</Link>
+                                            <Link href="/client/stadium" className="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -69,15 +70,15 @@ export default function Home(props) {
                             <div className="row g-5 align-items-center">
                                 <div className="col-lg-6">
                                     <h6 className="section-title text-start text-primary text-uppercase">About Us</h6>
-                                    <h1 className="mb-4">Welcome to <span className="text-primary text-uppercase">Hotelier</span></h1>
-                                    <p className="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                                    <h1 className="mb-4">Welcome to <span className="text-primary text-uppercase">My Stadium</span></h1>
+                                    <p className="mb-4"> My Stadium is a training salle offers so many type of stadium wher you can play with your team</p>
                                     <div className="row g-3 pb-4">
                                         <div className="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
                                             <div className="border rounded p-1">
                                                 <div className="border rounded text-center p-4">
                                                     <i className="fa fa-hotel fa-2x text-primary mb-2" />
-                                                    <h2 className="mb-1" data-toggle="counter-up">1234</h2>
-                                                    <p className="mb-0">Rooms</p>
+                                                    <h2 className="mb-1" data-toggle="counter-up">15</h2>
+                                                    <p className="mb-0">Stadiums</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,7 +86,7 @@ export default function Home(props) {
                                             <div className="border rounded p-1">
                                                 <div className="border rounded text-center p-4">
                                                     <i className="fa fa-users-cog fa-2x text-primary mb-2" />
-                                                    <h2 className="mb-1" data-toggle="counter-up">1234</h2>
+                                                    <h2 className="mb-1" data-toggle="counter-up">20</h2>
                                                     <p className="mb-0">Staffs</p>
                                                 </div>
                                             </div>
@@ -131,15 +132,15 @@ export default function Home(props) {
                             <div className="col-md-6 bg-dark d-flex align-items-center">
                                 <div className="p-5">
                                     <h6 className="section-title text-start text-white text-uppercase mb-3">Luxury Living</h6>
-                                    <h1 className="text-white mb-4">Discover A Brand Luxurious Hotel</h1>
-                                    <p className="text-white mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                                    <a href className="btn btn-primary py-md-3 px-md-5 me-3">Our Rooms</a>
-                                    <a href className="btn btn-light py-md-3 px-md-5">Book A Room</a>
+                                    <h1 className="text-white mb-4">Discover Our Premium Stadiums</h1>
+                                    <p className="text-white mb-4">  My Stadium is a training salle offers so many type of stadium wher you can play with your team</p>
+                                    <Link href="/client/stadium" className="btn btn-primary py-md-3 px-md-5 me-3">Our Stadiums</Link>
+                                    <Link href="/client/stadium" className="btn btn-light py-md-3 px-md-5">Reserve A Stadium</Link>
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="video">
-                                    <button type="button" className="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                                    <button type="button" className="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/watch?v=mvncFHboHsA" data-bs-target="#videoModal">
                                         <span />
                                     </button>
                                 </div>
@@ -178,63 +179,30 @@ export default function Home(props) {
                                                 <i className="fa fa-hotel fa-2x text-primary" />
                                             </div>
                                         </div>
-                                        <h5 className="mb-3">Rooms &amp; Appartment</h5>
-                                        <p className="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                                        <h5 className="mb-3">Different  Stadiums</h5>
+                                        <p className="text-body mb-0">We offer so many type of stidums with diffrent capcity and more ...</p>
                                     </a>
                                 </div>
                                 <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                                     <a className="service-item rounded" href>
                                         <div className="service-icon bg-transparent border rounded p-1">
                                             <div className="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                                <i className="fa fa-utensils fa-2x text-primary" />
+                                                <i className="fa fa-credit-card fa-2x text-primary" />
                                             </div>
                                         </div>
-                                        <h5 className="mb-3">Food &amp; Restaurant</h5>
-                                        <p className="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                                        <h5 className="mb-3">Online reservation</h5>
+                                        <p className="text-body mb-0">You can reserve your stadium online from your home or any where</p>
                                     </a>
                                 </div>
                                 <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                                     <a className="service-item rounded" href>
                                         <div className="service-icon bg-transparent border rounded p-1">
                                             <div className="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                                <i className="fa fa-spa fa-2x text-primary" />
+                                                <i className="fa fa-users fa-2x text-primary" />
                                             </div>
                                         </div>
-                                        <h5 className="mb-3">Spa &amp; Fitness</h5>
-                                        <p className="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                    </a>
-                                </div>
-                                <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                                    <a className="service-item rounded" href>
-                                        <div className="service-icon bg-transparent border rounded p-1">
-                                            <div className="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                                <i className="fa fa-swimmer fa-2x text-primary" />
-                                            </div>
-                                        </div>
-                                        <h5 className="mb-3">Sports &amp; Gaming</h5>
-                                        <p className="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                    </a>
-                                </div>
-                                <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                    <a className="service-item rounded" href>
-                                        <div className="service-icon bg-transparent border rounded p-1">
-                                            <div className="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                                <i className="fa fa-glass-cheers fa-2x text-primary" />
-                                            </div>
-                                        </div>
-                                        <h5 className="mb-3">Event &amp; Party</h5>
-                                        <p className="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                                    </a>
-                                </div>
-                                <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                                    <a className="service-item rounded" href>
-                                        <div className="service-icon bg-transparent border rounded p-1">
-                                            <div className="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                                <i className="fa fa-dumbbell fa-2x text-primary" />
-                                            </div>
-                                        </div>
-                                        <h5 className="mb-3">GYM &amp; Yoga</h5>
-                                        <p className="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                                        <h5 className="mb-3">Team players</h5>
+                                        <p className="text-body mb-0">You can invite players now online</p>
                                     </a>
                                 </div>
                             </div>
@@ -359,21 +327,6 @@ export default function Home(props) {
                     </div>
                     {/* Team End */}
                     {/* Newsletter Start */}
-                    <div className="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
-                        <div className="row justify-content-center">
-                            <div className="col-lg-10 border rounded p-1">
-                                <div className="border rounded text-center p-1">
-                                    <div className="bg-white rounded text-center p-5">
-                                        <h4 className="mb-4">Subscribe Our <span className="text-primary text-uppercase">Newsletter</span></h4>
-                                        <div className="position-relative mx-auto" style={{maxWidth: '400px'}}>
-                                            <input className="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email" />
-                                            <button type="button" className="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </main>

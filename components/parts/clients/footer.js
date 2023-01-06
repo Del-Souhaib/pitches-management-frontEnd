@@ -1,24 +1,25 @@
+import Link from "next/link";
 
 
 export default function FooterClient(){
 
     return (
-        <div className="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
+        <div className="container-fluid bg-dark text-light footer wow fadeIn mt-5" data-wow-delay="0.1s">
             <div className="container pb-5">
                 <div className="row g-5">
                     <div className="col-md-6 col-lg-4">
                         <div className="bg-primary rounded p-4">
-                            <a href="index.html"><h1 className="text-white text-uppercase mb-3">Hotelier</h1></a>
+                            <Link href="/"><h1 className="text-white text-uppercase mb-3">My Stadium</h1></Link>
                             <p className="text-white mb-0">
-                                Download <a className="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro">Hotelier – Premium Version</a>, build a professional website for your hotel business and grab the attention of new visitors upon your site’s launch.
+                                Download <a className="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro">My Stadium for android</a>,  Reserve now online using our application.
                             </p>
                         </div>
                     </div>
                     <div className="col-md-6 col-lg-3">
                         <h6 className="section-title text-start text-primary text-uppercase mb-4">Contact</h6>
-                        <p className="mb-2"><i className="fa fa-map-marker-alt me-3" />123 Street, New York, USA</p>
+                        <p className="mb-2"><i className="fa fa-map-marker-alt me-3" />Massira , Marrakech</p>
                         <p className="mb-2"><i className="fa fa-phone-alt me-3" />+012 345 67890</p>
-                        <p className="mb-2"><i className="fa fa-envelope me-3" />info@example.com</p>
+                        <p className="mb-2"><i className="fa fa-envelope me-3" />info@MyStadiums.com</p>
                         <div className="d-flex pt-2">
                             <a className="btn btn-outline-light btn-social" href><i className="fab fa-twitter" /></a>
                             <a className="btn btn-outline-light btn-social" href><i className="fab fa-facebook-f" /></a>
@@ -52,10 +53,8 @@ export default function FooterClient(){
                 <div className="copyright">
                     <div className="row">
                         <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            © <a className="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-                            {/*/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. *** /*/}
-                            Designed By <a className="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                            <br />Distributed By: <a className="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                            © <a className="border-bottom" href="#">My Stadium</a>, All Right Reserved.
+                            Designed By <Link className="border-bottom" href="/">Del</Link>
                         </div>
                         <div className="col-md-6 text-center text-md-end">
                             <div className="footer-menu">

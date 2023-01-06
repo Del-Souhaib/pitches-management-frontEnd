@@ -61,7 +61,7 @@ export default function HeaderClient() {
                     </div>
                     <nav className="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
                         <a href="index.html" className="navbar-brand d-block d-lg-none">
-                            <h1 className="m-0 text-primary text-uppercase">Hotelier</h1>
+                            <h1 className="m-0 text-primary text-uppercase">My Stadiums</h1>
                         </a>
                         <button type="button" className="navbar-toggler" data-bs-toggle="collapse"
                                 data-bs-target="#navbarCollapse">
@@ -74,6 +74,25 @@ export default function HeaderClient() {
                                 <Link href="service.html" className="nav-item nav-link">Services</Link>
                                 <Link href="/client/stadium" className="nav-item nav-link">Stadiums</Link>
                                 <a href="contact.html" className="nav-item nav-link">Contact</a>
+
+                                {isLogged ?
+                                    <div className="dropdown">
+                                        <a className="dropdown-toggle   d-block d-lg-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {user?.fullName}
+                                        </a>
+                                        <ul className="dropdown-menu">
+                                            <li><Link className="dropdown-item" href="/client/profile">Profile</Link></li>
+                                            <li><Link className="dropdown-item" href="/client/profile/reservations">Reservations</Link></li>
+                                            <li><a className="dropdown-item" onClick={handleLogout} href="#">LogOut</a></li>
+                                        </ul>
+                                    </div>
+
+                                    :
+                                    <Link href="/client/auth/login"
+                                          className="rounded-0 py-4 px-md-5 d-block d-lg-none">Login<i
+                                        className="fa fa-arrow-right ms-3"/></Link>
+                                }
+
                             </div>
 
                             {isLogged ?

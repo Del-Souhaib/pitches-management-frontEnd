@@ -29,7 +29,7 @@ const items = [
         getItem(<Link href="/admin/pitches">List</Link>, '4'),
         getItem(<Link href="/admin/pitches/add">Add</Link>, '5'),
     ]),
-    getItem('Reservations', '6', <AuditOutlined />),
+    getItem(<Link href="/admin/reservations">Reservations</Link>, '6', <AuditOutlined />),
 
     getItem('Messages', '7', <MessageOutlined />),
 
