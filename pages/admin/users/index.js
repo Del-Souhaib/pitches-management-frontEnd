@@ -1,8 +1,9 @@
-import {Button, Input, Space, Table} from "antd";
+import {Button, Input, Modal, Space, Table} from "antd";
 import {useRef, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from 'react-highlight-words';
 import SideMenue from "../../../components/parts/admin/sideMenue";
+import Link from "next/link";
 
 
 const Users=(props)=>{
@@ -113,6 +114,36 @@ const Users=(props)=>{
                 text
             ),
     });
+
+    const warningModal = (e) => {
+        Modal.warning({
+            title: 'Delete warnning' ,
+            content: 'Do you want delete this record ?',
+
+            onOk() {
+                fetch('http://localhost:8080/api/users/'+e,
+                    {
+                        method: 'DELETE',
+                    })
+                    .then((response) => response.text())
+                    .then((data) => {
+                        success()
+                    });
+
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+
+
+        });
+    };
+    const success = () => {
+        Modal.success({
+            content: 'Record Deleted Success',
+        });
+    };
+
     const columns = [
         {
             title: 'First Name',
@@ -163,11 +194,19 @@ const Users=(props)=>{
         {
             title: 'Action',
             key: 'action',
+            dataIndex: 'action',
             render: (_, record) => (
-                <p>d</p>
+
+                <>
+                    <Space>
+                        <Link href={"/admin/pitches/"+record.id}>Edit</Link>
+                        <a className="text text-danger" onClick={e=>warningModal(record.id)}>Delete</a>
+                    </Space>
+                </>
             ),
 
         },
+
     ];
 
     return (
@@ -175,7 +214,7 @@ const Users=(props)=>{
 
             <SideMenue/>
             <div className="container mt-5">
-                <h3 className="text-center mb-5">List Client</h3>
+                <h3 className="text-center mb-5">List Joueurs</h3>
 
 
                 <Table columns={columns} dataSource={props.users} />

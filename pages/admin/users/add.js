@@ -37,7 +37,7 @@ export default function addUser(props) {
 
                 <SideMenue/>
                 <div className="container mt-5">
-                    <h3 className="text-center mb-5">Add User</h3>
+                    <h3 className="text-center mb-5">Add new Player</h3>
                     <Form
                         name="basic"
                         labelCol={{

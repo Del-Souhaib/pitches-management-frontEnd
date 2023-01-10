@@ -9,36 +9,31 @@ import {useState} from "react";
 
 
 export default function AdminDashboard(props) {
-    const [events,setEvents]=useState()
+    const [events, setEvents] = useState([])
 
-    console.log(props)
-    function handleDateClick(e) {
-        const resDate = moment(e.date).format('yyyy-M-DD HH:mm:ss')
-        console.log(resDate)
-
-        fetch('http://localhost:8080/api/reservations/byDate/' + resDate).then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-                if (data) {
-                    showError()
-                } else {
-                    showConfirm(resDate)
+    const onChange = async (value) => {
+        console.log(`selected ${value}`);
+        const res2 = await fetch(`http://localhost:8080/api/reservations/byPitch/` + value)
+        const reservations = await res2.json()
+        setEvents(reservations.map(reservation =>
+            (
+                {
+                    "id": reservation.id,
+                    "title": "Résérved",
+                    "date": reservation.dateReservation,
+                    "display": 'background',
+                    "backgroundColor": "#ce079c",
+                    "color": "black"
 
                 }
-                // data =true?  showConfirm(resDate) : showError
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            )
+        ))
 
-    }
-
-    function changePitch(e){
-        console.log(e)
-    }
+    };
+    console.log(props)
     return (
         <>
-            <div className="d-flex">
+            <div className=" d-flex">
 
                 <SideMenue/>
                 <div>
@@ -52,17 +47,28 @@ export default function AdminDashboard(props) {
 
 
                 <div className="container mt-5">
-                    <h3 className="text-center mb-5">Reservations</h3>
+                    <h3 className="text-center mb-5">Dashboard</h3>
+                    <div className="">
+                        <label className="me-3 mb-4">Select a Stadium</label>
+                        <Select style={{width: 200}}
+                                showSearch
+                                placeholder="Select a person"
+                                optionFilterProp="children"
+                                onChange={onChange}
+                                filterOption={(input, option) =>
+                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                                options={props.pitches?.map(pitch => (
+                                    {value: pitch.id, label: pitch.name}
+                                ))}
+                        />
+
+                    </div>
                     <FullCalendar
                         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-                        // events={events}
+                        events={events}
                         initialView='timeGridWeek'
-                        height="80vh"
-                        // visibleRange= {
-                        //     start: '2020-03-22',
-                        //     end: '2020-03-25'
-                        // }
-                        dateClick={handleDateClick}
+                        height="100vh"
                         slotMinTime="06:00:00"
                         slotMaxTime="24:00:00"
                         slotDuration="01:00:00"
@@ -73,11 +79,13 @@ export default function AdminDashboard(props) {
 
     )
 }
+
 export async function getServerSideProps() {
     // Fetch data from external API
     const res = await fetch(`http://localhost:8080/api/pitches`)
-    const data = await res.json()
+    const pitches = await res.json()
+
 
     // Pass data to the page via props
-    return { props: { data } }
+    return {props: {pitches}}
 }

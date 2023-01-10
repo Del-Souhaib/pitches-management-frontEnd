@@ -104,7 +104,7 @@ export default function SpecificPitch(props) {
             .then((data) => {
                 // route.push("/client/profile/reservations/" + reservationId)
                 console.log('Success:', data);
-                // route.push('/client/profile/reservations/'+reservationId)
+                route.push('/client/profile/reservations')
 
             })
             .catch((error) => {
@@ -237,10 +237,6 @@ export default function SpecificPitch(props) {
                             events={events}
                             initialView='timeGridWeek'
                             height="80vh"
-                            // visibleRange= {
-                            //     start: '2020-03-22',
-                            //     end: '2020-03-25'
-                            // }
                             dateClick={handleDateClick}
                             eventClick={eventClick}
                             slotMinTime="06:00:00"
@@ -271,7 +267,7 @@ export default function SpecificPitch(props) {
                         const errors = {};
                         return errors;
                     }}
-                    onSubmit={(values, {setSubmitting}) => {
+                    onSubmit={ (values, {setSubmitting}) => {
 
                         let obj = {
                             owner: UseUserInfo('client').userId,
@@ -279,7 +275,7 @@ export default function SpecificPitch(props) {
                             dateReservation: selectedDate
                         }
 
-                        fetch('http://localhost:8080/api/reservations', {
+                         fetch('http://localhost:8080/api/reservations', {
                             method: 'POST', // or 'PUT'
                             headers: {
                                 'Content-Type': 'application/json',

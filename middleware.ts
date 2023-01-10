@@ -25,7 +25,6 @@ export function middleware(request: NextRequest) {
     // else if(!client && request.nextUrl.pathname!='/client/auth/login'){
     //     console.log(4)
     //     return NextResponse.redirect(new URL('/client/auth/login?redirecturl='+request.nextUrl.pathname, request.url))
-    //
     // }
 }
 
